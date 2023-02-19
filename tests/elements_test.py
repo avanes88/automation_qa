@@ -1,6 +1,6 @@
 import time
 
-from pages.elements_page import TextBoxPage, CheckBoxPage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage
 
 
 class TestElements:
@@ -25,6 +25,32 @@ class TestElements:
             input_checkbox = check_box_page.get_output_result()   # I could not find the elements so did like this for now
             output_result = check_box_page.get_output_result()
             assert input_checkbox == output_result, "Error"
+
+    class TestRadioButton:
+        def test_radio_button(self, driver):
+            radio_button_page = RadioButtonPage(driver, 'https://demoqa.com/radio-button')
+            radio_button_page.open()
+            radio_button_page.click_random_radio_button('Yes')
+            output_yes = radio_button_page.get_output_result()
+            radio_button_page.click_random_radio_button('Impressive')
+            output_impressive = radio_button_page.get_output_result()
+            radio_button_page.click_random_radio_button('No')
+            output_no = radio_button_page.get_output_result()
+            assert output_yes == 'Yes', '"yes" was not selected'
+            assert output_impressive == 'Impressive', '"impressive" was not selected'
+            assert output_no == 'No', '"no" was not selected'
+
+    class TestWebTable:
+        def test_web_table_add_person(self, driver):
+            web_table_page = WebTablePage(driver, 'https://demoqa.com/webtables')
+            web_table_page.open()
+            new_person = web_table_page.add_new_person()
+            table_result = web_table_page.check_new_added_person()
+            print(new_person)
+            print(table_result)
+            assert new_person in table_result
+
+
 
 
 

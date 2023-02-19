@@ -26,4 +26,24 @@ class CheckBoxPageLocators:
     OUTPUT_RESULT = (By.CSS_SELECTOR, 'span[class="text-success"]')
 
 
+class RadioButtonPageLocators:
+    YES_RADIOBUTTON = (By.CSS_SELECTOR, "label[class^='custom-control-label'][for='yesRadio']")
+    IMPRESSIVE = (By.CSS_SELECTOR, "label[class^='custom-control-label'][for='impressiveRadio']")
+    NO_RADIO = (By.CSS_SELECTOR, "label[class^='custom-control-label'][for='noRadio']")
+    OUTPUT_RESULT = (By.CSS_SELECTOR, "span[class='text-success']")
+
+
+class WebTablePageLocators:
+    # add person locators
+    ADD_BUTTON = (By.CSS_SELECTOR, "button[class='btn btn-primary']")
+    FIRSTNAME_INPUT = (By.CSS_SELECTOR, 'input[id="firstName"]')
+    LASTNAME_INPUT = (By.CSS_SELECTOR, 'input[id="lastName"]')
+    EMAIL_INPUT = (By.CSS_SELECTOR, 'input[id="userEmail"]')
+    AGE_INPUT = (By.CSS_SELECTOR, 'input[id="age"]')
+    SALARY_INPUT = (By.CSS_SELECTOR, 'input[id="salary"]')
+    DEPARTMENT_INPUT = (By.CSS_SELECTOR, 'input[id="department"]')
+    SUBMIT_BUTTON = (By.CSS_SELECTOR, 'button[id="submit"]')
+
+    # tables list locators
+    FULL_PEOPLE_LIST = (By.CSS_SELECTOR, 'div[class="rt-tr-group"]')
 
