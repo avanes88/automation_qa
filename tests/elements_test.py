@@ -1,3 +1,4 @@
+import random
 import time
 
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage
@@ -53,13 +54,37 @@ class TestElements:
         def test_web_table_search_person(self, driver):
             web_table_page = WebTablePage(driver, 'https://demoqa.com/webtables')
             web_table_page.open()
-            firstname = web_table_page.add_new_person()[0]
+            firstname = web_table_page.add_new_person()[random.randint(0, 5)]
             web_table_page.search_some_person(firstname)
             table_result = web_table_page.check_search_person()
             print(firstname)
             print(table_result)
             assert firstname in table_result, 'The person was not detected'
 
+        def test_web_table_update_person_info(self, driver):
+            web_table_page = WebTablePage(driver, 'https://demoqa.com/webtables')
+            web_table_page.open()
+            firstname = web_table_page.add_new_person()[0]
+            web_table_page.search_some_person(firstname)
+            new_age = web_table_page.update_person_info()
+            row = web_table_page.check_search_person()
+            assert new_age in row, 'Age was not changed'
+
+        def test_table_delete_person(self, driver):
+            web_table_page = WebTablePage(driver, 'https://demoqa.com/webtables')
+            web_table_page.open()
+            email = web_table_page.add_new_person()[3]
+            web_table_page.search_some_person(email)
+            web_table_page.delete_created_person()
+            text = web_table_page.check_deleted_person()
+            time.sleep(3)
+            assert text == 'No rows found', 'Person was not deleted'
+
+        def test_web_table_change_count_row(self, driver):
+            web_table_page = WebTablePage(driver, 'https://demoqa.com/webtables')
+            web_table_page.open()
+            count = web_table_page.change_quantity_rows()
+            assert count == [5, 10], "Rows quantity was changed incorrectly"
 
 
 
