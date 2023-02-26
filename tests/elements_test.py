@@ -1,7 +1,7 @@
 import random
 import time
 
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage
 
 
 class TestElements:
@@ -47,6 +47,7 @@ class TestElements:
             web_table_page.open()
             new_person = web_table_page.add_new_person()
             table_result = web_table_page.check_new_added_person()
+            time.sleep(5)
             print(new_person)
             print(table_result)
             assert new_person in table_result
@@ -78,7 +79,7 @@ class TestElements:
             web_table_page.delete_created_person()
             text = web_table_page.check_deleted_person()
             time.sleep(3)
-            assert text == 'No rows found', 'Person was not deleted'
+            assert text == 'No rows found'
 
         def test_web_table_change_count_row(self, driver):
             web_table_page = WebTablePage(driver, 'https://demoqa.com/webtables')
@@ -86,5 +87,14 @@ class TestElements:
             count = web_table_page.change_quantity_rows()
             assert count == [5, 10], "Rows quantity was changed incorrectly"
 
+    class TestButtonsPage:
 
-
+        def test_different_click_on_the_button(self, driver):
+            button_page = ButtonsPage(driver, 'https://demoqa.com/buttons')
+            button_page.open()
+            double = button_page.click_on_different_buttons('double')
+            right = button_page.click_on_different_buttons('right')
+            click = button_page.click_on_different_buttons('click')
+            assert double == 'You have done a double click', 'double button is broken'
+            assert right == 'You have done a right click', 'right click button is broken'
+            assert click == 'You have done a dynamic click', 'click button is broken'
